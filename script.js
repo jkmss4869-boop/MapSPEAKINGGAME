@@ -34,7 +34,7 @@ function renderMissions(data) {
     data.forEach(item => {
         const cardHTML = `
         <div class="mission-card cursor-pointer transition-all duration-300 min-w-[320px] bg-primary-fixed/80 backdrop-blur-md rounded-lg p-4 border border-white/60 shadow-[0_4px_16px_rgba(180,21,71,0.1)] relative group h-full flex flex-col justify-between max-h-none py-6" 
-             onclick="selectMission(this, ${item.MapX}, ${item.MapY}, ${item.MapZoom}, 'primary')">
+             onclick="selectMission(this, ${item.MapX}, ${item.MapY}, ${parseFloat(item.MapZoom) || 2.5}, 'primary', '${item.ImagePath}')">
             <div class="candy-gloss"></div>
             <p class="font-body-md text-on-surface mb-3 relative z-10 leading-relaxed text-[17px] pointer-events-none">
                 ${item.MissionText}

@@ -278,12 +278,12 @@
 <!-- Ambient Glow behind map -->
 <div class="absolute inset-0 bg-gradient-to-br from-secondary-fixed/20 to-primary-fixed/20 pointer-events-none rounded-[2rem]"></div>
 <div class="absolute top-0 left-0 origin-top-left will-change-transform flex items-center justify-center min-w-full min-h-full" id="map-content" style="transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); transform: translate(0px, -717px) scale(2.5);">
-<img alt="Game Map Reference" class="max-w-none block object-contain drop-shadow-[0_12px_36px_rgba(0,0,0,0.15)] relative z-10" id="map-image" src="images/start_here.png" alt="Ảnh khởi đầu trò chơi">
+<img alt="Game Map Reference" class="max-w-none block object-contain drop-shadow-[0_12px_36px_rgba(0,0,0,0.15)] relative z-10" id="map-image" src="" alt="Ảnh khởi đầu trò chơi">
 </div>
 <!-- Minimap Widget -->
 <div class="absolute bottom-6 left-6 w-48 bg-surface/80 backdrop-blur-xl border-2 border-white/70 rounded-xl shadow-lg z-20 overflow-hidden hidden md:block">
 <div class="relative w-full h-full p-2">
-<img alt="Minimap" class="w-full h-auto opacity-70 object-contain rounded-lg bg-white/50" id="minimap-image" src="images/start_here.png" alt="Ảnh khởi đầu trò chơi">
+<img alt="Minimap" class="w-full h-auto opacity-70 object-contain rounded-lg bg-white/50" id="minimap-image" src="" alt="Ảnh khởi đầu trò chơi">
 <div class="absolute border-[2px] border-primary bg-primary/20 rounded shadow-[0_0_10px_rgba(180,21,71,0.5)] pointer-events-none box-border" id="minimap-viewport" style="top: 66.2037%; left: 0%; width: 90%; height: 37.2222%;"></div>
 </div>
 </div>
@@ -536,19 +536,26 @@
         zoomMap(delta, originX, originY);
     }, { passive: false });
 
-    // Mission Card Selection Logic
-    function selectMission(element, px, py, targetScale, themeType) {
-        // Remove selection from all cards
-        document.querySelectorAll('.mission-card').forEach(card => {
-            card.classList.remove('selected-primary', 'selected-secondary');
-        });
-        
-        // Add to clicked
-        element.classList.add(`selected-${themeType}`);
-        
-        // Fly map
-        flyTo(px, py, targetScale);
+  // Thêm tham số imagePath vào hàm
+function selectMission(element, px, py, targetScale, themeType, imagePath) {
+    console.log("Đã click! Đường dẫn ảnh nhận được là:", imagePath); // DÒNG NÀY CỰC QUAN TRỌNG
+    // 1. Remove selection from all cards
+    document.querySelectorAll('.mission-card').forEach(card => {
+        card.classList.remove('selected-primary', 'selected-secondary');
+    });
+    
+    // 2. Add to clicked
+    element.classList.add(`selected-${themeType}`);
+    
+    // 3. Fly map
+    flyTo(px, py, targetScale);
+
+    // 4. MỚI: Đổi ảnh bản đồ (bơm vào ID map-image và minimap-image)
+    if (imagePath) {
+        document.getElementById('map-image').src = imagePath;
+        document.getElementById('minimap-image').src = imagePath;
     }
+}
 </script>
 </div>
 <!-- HỘP 3: MÀN HÌNH PLAYER 2 (Đang giấu) -->
